@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+require './utils.rb'
+
+begin
+  day_number = Integer(ARGV[0])
+rescue ArgumentError
+  finish 'Usage: run NUMBER'
+end
+
+begin
+  folder = "day_" + "%02d" % day_number
+  files = Dir.entries(folder)
+rescue Errno::ENOENT
+  finish "Folder for day #{day_number} not found"
+end
+
+runner = Runner.new(folder, files)
+
+puts '************** PART ONE **************'
+runner.run_part('one')
+
+puts "\n************** PART TWO **************"
+runner.run_part('two')
